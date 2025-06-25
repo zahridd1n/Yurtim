@@ -22,6 +22,8 @@ app_models = apps.get_models()
 for model in app_models:
     if model.__name__ not in exclude_models:
         try:
-            admin.site.register(model)
+            @admin.register(model)
+            class CustomModelAdmin(ModelAdmin):
+                pass
         except AlreadyRegistered:
             pass
