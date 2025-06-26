@@ -17,7 +17,7 @@ class SocialMedia(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
-    message = models.TextField()
+    message = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
 

@@ -7,5 +7,16 @@ class Base(models.Model):
 
 
     class Meta:
-        verbose_name = "Salom"
-        verbose_name_plural = "Salomlar"
+        verbose_name = "Base"
+        verbose_name_plural = "Base"
+
+class BotKeys(models.Model):
+    token = models.CharField(max_length=255)
+    chat_id = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Bot Keys"
+        verbose_name_plural = "Bot Keys"
+
+    def __str__(self):
+        return self.token

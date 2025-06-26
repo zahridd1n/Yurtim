@@ -32,3 +32,36 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = product.ProductImages
         fields = ('id', 'image')
+
+class ContactOurSerializer(serializers.ModelSerializer, GeneralMixin):
+    address = serializers.SerializerMethodField()
+    class Meta:
+        model = contact.ContactOur
+        fields = ('id', 'address', 'phone', 'email', 'latitude', 'longitude')
+
+    def get_address(self, obj):
+        return self.get_translated_field(obj, 'address')
+
+class CategorySerializer(serializers.ModelSerializer, GeneralMixin):
+    name = serializers.SerializerMethodField()
+    class Meta:
+        model = product.Category
+        fields = ('id', 'name')
+
+    def get_name(self, obj):
+        return self.get_translated_field(obj, 'name')
+
+class ProductSerializer(serializers.ModelSerializer, GeneralMixin):
+    name = serializers.SerializerMethodField()
+    class Meta:
+        model = product.Product
+        fields = ('id', 'name', 'category', 'image', 'volume', 'price')
+
+    def get_name(self, obj):
+        return self.get_translated_field(obj, 'name')
+
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = contact.SocialMedia
+        fields = ('id', 'name', 'icon', 'link')
