@@ -35,8 +35,8 @@ class ContactOur(models.Model):
     address_uz = models.TextField()
     address_ru = models.TextField(null=True, blank=True)
     address_en = models.TextField(null=True, blank=True)
-    latitude = models.CharField(max_length=255, null=True, blank=True)
-    longitude = models.CharField(max_length=255, null=True, blank=True)
+    latitude = models.TextField(null=True, blank=True)
+    longitude = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.phone
