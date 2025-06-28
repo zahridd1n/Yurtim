@@ -9,9 +9,22 @@ from main.models import contact, faq, product, base
 from main.serializers import ImageSerializer, FAQSerializer, ProductSerializer, CategorySerializer, ContactOurSerializer, SocialMediaSerializer
 
 
-class ImageView(generics.ListAPIView):
-    serializer_class = ImageSerializer
-    queryset = product.ProductImages.objects.all()
+
+class ImageView(APIView):
+    def get(self, request):
+        images_1 = product.ProductImages.objects.all().order_by('?')
+        images_2 = product.ProductImages.objects.all().order_by('?')
+        serializer_1 = ImageSerializer(images_1, many=True, context={'request': request})
+        serializer_2 = ImageSerializer(images_2, many=True, context={'request': request})
+        data = {
+            'success': True,
+            'message': 'Success',
+            'data': {
+                'images_1': serializer_1.data,
+                'images_2': serializer_2.data
+            }
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class FAQView(APIView):
@@ -124,8 +137,8 @@ class ProductView(APIView):
 
 class SocialMediaView(APIView):
     def get(self, request):
-        social_media = contact.SocialMedia.objects.first()
-        serializer = SocialMediaSerializer(social_media)
+        social_media = contact.SocialMedia.objects.all()
+        serializer = SocialMediaSerializer(social_media, many=True, context={'request': request})
         data = {
             'success': True,
             'message': 'Success',
